@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-	<title>Delete</title>
+	<head>
+	<title>Gagal</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
 	
-</head>
+	</head>
 
 <body>
-	<h2> Data Tidak Jadi di Hapus</h2>
-</body>
-
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<div class="alert alert-danger">
+	    <strong>Batal Hapus!</strong> terdapat pegawai yang memiliki jabatan ini.</strong>
+	  </div>
+	  
+		<a style="margin-left:10px;"th:href="@{'/'}" class="previous">&laquo; Back To Home</a>
+	
+	
+	
+	</body>
 </html>
+
+
