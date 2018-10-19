@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>View Detail</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<style>
+			a {
+			    text-decoration: none;
+			    display: inline-block;
+			    padding: 8px 16px;
+			}
+			
+			a:hover {
+			    background-color: #ddd;
+			    color: black;
+			}
+			
+			.previous {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:30px;
+			    margin-left:120px;
+
+			}
+		.atas {
+			margin-left: 15px;
+		}
+		
+		.row {
+			margin-left: 100px;
+			margin-top: 60px;
+			width:2000px;
+		}
+		
+		table {
+			margin-left: 20px;
+			margin-bottom: 10px;
+		}
+
+
+</style>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<div class="atas">
+						<font size="6">
+							<p th:text="'Detail Pegawai-'+${pegawai.nip}"/> 
+						</font><br> </b>
+					</div>
+				</div>
+				<table >
+					
+					
+					<div class="card-body">
+					
+						<tr>
+							<td><font size="4">NIP</font></td>
+
+							<td><p class="card-text" th:text="': '+${pegawai.nip}" /></td>
+						</tr>
+						
+						<tr>
+							<td><font size="4">Nama</font></td>
+
+							<td><p class="card-text" th:text="': '+${pegawai.nama}" /></td>
+						</tr>
+						
+						
+					<tr >
+
+						<td><font size="4">Tempat Lahir</font></td>
+
+						<td><p class="card-text"
+								th:text="': '+${pegawai.tempatLahir}" /></td>
+					</tr>
+
+					<tr>
+						<td><font size="4">Tanggal Lahir</font></td>
+
+						<td><p class="card-text"
+								th:text="': '+${pegawai.tanggalLahir}" /></td>
+					</tr>
+
+					<tr>
+						<td><font size="4">Tahun Masuk</font></td>
+
+						<td><p class="card-text" th:text="': '+${pegawai.tahunMasuk}" /></td>
+					</tr>
+
+					<tr>
+						<td><font size="4">Tulisan</font> </td>
+
+						<td><p class="card-text" th:text="': '+${tulisan}" /></td>
+					</tr>
+					
+					<tr >
+						
+						<td><font size="4">Jabatan</font></td>
+						
+						<td>
+							
+							<p class="card-text" th:each="jabatan :${jabatan}" >
+							<li th:text="${jabatan}" > 
+							
+						</td>
+						
+					</tr>
+
+					<tr>
+						<td><font size="4"> Gaji</font></td>
+
+						<td><p class="card-text" th:text="': Rp. '+${gaji}" /></td>
+					</tr>
+					</div>
+
+					
+
+				</table>
+
+
+
+			</div>
+		</div>
+	</div>
+	<a th:href="@{'/'}" class="previous">&laquo; Previous</a>
+</body>
+
+</html>

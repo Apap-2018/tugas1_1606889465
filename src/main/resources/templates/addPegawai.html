@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title> Tambah Pegawai</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	
+	<style>
+		button{
+		margin-left:200px;
+		
+		}
+		
+		.form-control{
+			width:500px;
+		}
+		
+		.row{
+			margin-left:25px;
+			margin-top:50px;
+			padding-bottom:20px;
+		}
+		
+		.formulir{
+			padding:20px;
+		}
+		
+		.back-to-top {
+	
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+		
+		
+	
+	</style>
+	
+</head>
+
+
+
+<nav th:replace="fragments/fragment :: navbar"></nav>
+	
+<body>	
+	
+	<div  class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					
+					<h3>Silahkan Masukan Data Pegawai</h3>
+					
+				</div>
+				<form class="formulir"th:action="@{/pegawai/tambah}" th:object="${pegawai}" method="POST">
+		
+					<b>Nama :</b><br>
+					<input type="text" name="nama" class="form-control" th:value="*{nama}"/>
+					
+					<br>
+					<b>Tempat Lahir: </b><br>
+					<input type="text" name="tempatLahir" class="form-control" th:value="*{tempatLahir}"/>
+					<br>
+					<b>Tanggal Lahir :</b><br>
+					<input type="date" name="tanggalLahir" class="form-control" th:value="*{tanggalLahir}"/>
+					<br>
+					<b>Tahun Masuk :</b><br>
+					<input type="number" name="tahunMasuk" class="form-control" th:value="*{tahunMasuk}"/>
+					
+					<br>
+					<div>
+					<b>Provinsi : </b>
+						<div >
+							<select id="provinsi" name="provinsi" class="form-control">
+							    <option class="form-control" th:each="provinsi : ${listProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"/>
+							</select>
+						</div>
+					</div>
+					<br>
+					<b>Nama Instansi : </b>
+					<div >
+						<select name="idInstansi" th:value="*{idInstansi}" id="instansi" class="form-control">
+						    <option th:each="instansi: ${listInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}"/>
+						</select>
+					</div>
+					
+					<br>
+					<b>Jabatan :</b>
+					<div  th:each="jabatanPegawai, statusJabatan : *{jabatanPegawai}" >
+						<select th:field="*{jabatanPegawai[__${statusJabatan.index}__].jabatan}" class="form-control">
+						    <option th:each="jabatan, status : ${listJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"/>
+						</select>
+						
+					</div>
+					<br>
+				
+			 		<button type="submit" name="addJabatan" class="btn btn-success btn-sm">Tambah Jabatan Lainnya</button>
+			 		<br>
+			 		<br>
+					
+					
+			
+					<button style="margin-left:240px;"  type="submit" class="btn btn-primary">Submit</button>	
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+	<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>
+	
+</body>
+
+	<script th:inline="javascript">
+	$('#provinsi').change(
+	     function() {
+	         $.getJSON("/instansi", {
+	             provinsiId : $(this).val(),
+	             ajax : 'true'
+	         }, function(data) {
+	        	 console.log("ais");
+	             var html = '<option value="">Pilih Instansi</option>';
+	             var len = data.length;
+	             for ( var i = 0; i < len; i++) {
+	                 html += '<option value="' + data[i].id + '">'
+	                         + data[i].nama + '</option>';
+	             }
+	             html += '</option>';
+	             $('#instansi').html(html);
+	         });
+	     });
+	
+	
+	$(document).ready(function(){
+	    $(window).scroll(function () {
+	           if ($(this).scrollTop() > 50) {
+	               $('#back-to-top').fadeIn();
+	           } else {
+	               $('#back-to-top').fadeOut();
+	           }
+	       });
+	       // scroll body to 0px on click
+	       $('#back-to-top').click(function () {
+	           $('#back-to-top').tooltip('hide');
+	           $('body,html').animate({
+	               scrollTop: 0
+	           }, 800);
+	           return false;
+	       });
+	       
+	       $('#back-to-top').tooltip('show');
+
+	});
+	
+	</script>
+</html>
+
+
+</html>

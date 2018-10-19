@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>View Detail</title>
+<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+<script th:src="@{/js/bootstrap.min.js}"></script>
+
+<style>
+		.atas {
+			margin-left: 15px;
+		}
+		
+		.row {
+			margin-left: 100px;
+			margin-top: 60px;
+			width: 2000px;
+			
+		}
+		
+		.card{
+			padding-bottom:10px;
+		}
+		
+		table {
+			margin-left: 20px;
+			margin-bottom: 10px;
+			
+		}
+		
+		.btn btn-primary{
+			color:red;
+		}
+		
+		#redbutton:hover{
+			background-color:black;
+		
+		}
+
+			a {
+			    text-decoration: none;
+			    display: inline-block;
+			    padding: 8px 16px;
+			}
+			
+			a:hover {
+			    background-color: #ddd;
+			    color: black;
+			}
+			
+			.previous {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:30px;
+			    margin-left:120px;
+
+			}
+
+</style>
+</head>
+<body>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	<br>
+
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+					<div class="atas">
+						<font size="6">
+							<p th:text="'Detail Jabatan-'+${jabatan.nama}" />
+						</font>
+					</div>
+				</div>
+				<table>
+
+
+					<div class="card-body">
+
+						<tr>
+							<td><font size="4">Nama</font></td>
+
+							<td><p class="card-text" th:text="': '+${jabatan.nama}" /></td>
+						</tr>
+
+						<tr>
+							<td><font size="4">Deskripsi</font></td>
+
+							<td><p class="card-text" th:text="': '+${jabatan.deskripsi}" /></td>
+						</tr>
+
+
+						<tr>
+
+							<td><font size="4">Gaji Pokok</font></td>
+
+							<td><p class="card-text" th:text="': '+${jabatan.gajiPokok}" /></td>
+							
+							
+						</tr>
+						<tr>
+
+							<td><font size="4">Jumlah Pegawai</font></td>
+							
+							<td>
+							
+							<p th:text="${jumlahPegawai}"/>
+							</td>
+							
+							
+							
+						</tr>
+					
+					
+					</div>
+				 
+				
+				</table>
+					<br>
+					<form  th:action="@{/jabatan/ubah}" method="GET">
+						<input th:value="${jabatan.id}" type="hidden" name="idJabatan"/>
+						<button style="width:50%;margin-left:200px;"type="submit" class="btn btn-primary">Ubah Jabatan</button>	
+						
+					</form>
+					<br>
+					
+					<form  th:action="@{/jabatan/hapus}" method="POST">
+						<input th:value="${jabatan.id}" type="hidden" name="id"/>
+						<button id="redbutton" style="background-color:#B22222;width:50%;margin-left:200px;"type="submit" class="btn btn-primary">Delete</button>	
+						
+					</form>
+					
+					
+				
+				
+			</div>
+			
+			
+		</div>
+	</div>
+	<a th:href="@{'/'}" class="previous">&laquo; Previous</a>
+</body>
+
+</html>

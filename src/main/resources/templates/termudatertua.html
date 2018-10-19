@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Termuda Tertua</title>
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+	
+		<style>
+			* {
+			    box-sizing: border-box;
+			}
+			
+			/* Create two unequal columns that floats next to each other */
+			.columnn {
+			    float: left;
+			    padding: 10px;
+			    height: 300px; /* Should be removed. Only for demonstration */
+			}
+			
+			.left {
+			  padding-left:20px;
+			  padding-right:20px;
+			  padding-top:30px;
+			  width: 50%;
+			}
+			
+			.right {
+			  width: 50%;
+			   padding-left:10px;
+			  padding-top:30px;
+			   padding-right:30px;
+			  
+			}
+			
+			/* Clear floats after the columns */
+			.roww:after {
+			    content: "";
+			    display: table;
+			    clear: both;
+			}
+			
+			.card-body{
+				padding-left:20px;
+				
+			}
+			
+			table{
+				
+				margin-left:20px;
+			}
+			
+			a {
+			    text-decoration: none;
+			    display: inline-block;
+			    padding: 8px 16px;
+			}
+			
+			a:hover {
+			    background-color: #ddd;
+			    color: black;
+			}
+			
+			.previous {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:100px;
+			    margin-left:30px;
+
+			}
+			
+		</style>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+	</head>
+	
+	<body>
+	<div class="roww">
+  		<div class="columnn left">
+  			<div class="card">
+				<div class="card-header">
+					<font  size="5">
+						Lihat Data Pegawai Termuda
+					</font>
+				</div>
+				<table>
+					<div class="card-body">
+						<tr>
+							<td><p>Nama</p> </td>
+							<td><p th:text="${termuda.nama}"/></td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td> <p> Tempat Lahir</p> </td>
+			  				<td><p th:text="${termuda.tempatLahir}"/><td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Tanggal Lahir</p> </td>
+			  				<td><p th:text="${termuda.tanggalLahir}"/><td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Tahun Masuk</p> </td>
+			  				<td><p th:text="${termuda.tahunMasuk}"/><td>
+			  			</tr>
+			  			
+			  				<tr>
+			  				<td><p> Jabatan</p> </td>
+			  				<td th:each="jabatans : ${jabatanPegawaiMuda}">
+			  				<li th:text="${jabatans.jabatan.nama}"/>
+			  				</td>
+			  			</tr>
+			  			
+			  			
+			  			
+			  			
+			  			<tr>
+			  				<td><p> Nama Instansi</p></td>
+			  				<td><p th:text="${termuda.idInstansi.nama}+'-'+ ${termuda.idInstansi.idProvinsi.nama}"/><td>
+			  			</tr>
+			  			
+			  		
+	  				</div>
+				</table>
+			</div>
+  		
+  		</div>
+  		<div class="columnn right">
+  			<div class="card">
+				<div class="card-header">
+					<font  size="5">
+						Lihat Data Pegawai Tertua
+					</font>
+				</div>
+				<table>
+					<div class="card-body">
+						<tr>
+							<td><p>Nama</p> </td>
+							<td><p th:text="${tertua.nama}"/></td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td> <p> Tempat Lahir</p> </td>
+			  				<td><p th:text="${tertua.tempatLahir}"/><td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Tanggal Lahir</p> </td>
+			  				<td><p th:text="${tertua.tanggalLahir}"/><td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Tahun Masuk</p> </td>
+			  				<td><p th:text="${tertua.tahunMasuk}"/><td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Jabatan</p> </td>
+			  				<td th:each="jabatans : ${jabatanPegawaiTertua}">
+			  				<li th:text="${jabatans.jabatan.nama}"/>
+			  				</td>
+			  			</tr>
+			  			
+			  			<tr>
+			  				<td><p> Nama Instansi</p></td>
+			  				<td><p th:text="${tertua.idInstansi.nama}+'-'+ ${tertua.idInstansi.idProvinsi.nama}"/><td>
+			  			</tr>
+			  			
+			  		
+	  				</div>
+				</table>
+			</div>
+  			
+  		</div>
+  		
+	</div>
+	<a th:href="@{'/'}" class="previous">&laquo; Previous</a>
+	
+	
+	</body>
+	
+	
+</html>

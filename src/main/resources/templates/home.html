@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Home</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	
+	<style>
+	
+	.row{
+		margin-left:10px;
+		margin-right:10px;
+		padding-bottom:20px;
+	}
+	
+	.atas {
+		margin-left:25px;
+	}
+	
+	.rows{
+	margin-left:400px;
+	width:1200px;
+	
+	}
+	
+	body{
+		padding-bottom:10px;
+	}
+	
+	.back-to-top {
+	
+    cursor: pointer;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display:none;
+}
+	
+	
+	
+	</style>
+</head>
+	<nav th:replace="fragments/fragment :: navbar"></nav>
+<body>
+
+	<br>
+	
+	<div class="rows">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header"  style="background-color:#AFEEEE;">
+					 <div class="atas" >
+					 	<p align="center">
+						<font size="6">Sistem Informasi Kepegawaian </font><br>
+						<font size="3"> Selamat datang di Sistem Informasi Kepegawaian</font>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+		<div class="col-md-6">
+			<div class="card" style="padding-top:10px;width:500px;">
+				<div class="card-header">
+					<font  size="5">
+						Cari Pegawai Beradasrkan Nomor NIP
+					</font>
+				</div>
+				<form th:action="@{/pegawai}" method="GET">
+					<div class="card-body" >
+						<label for="nip">* Masukkan Nomor Induk Pegawai</label>
+						<input type="text" name="nip" class="form-control"/>
+						<br>
+						<button style="width:100px;margin-left:180px;"type="submit" class="btn btn-primary">Lihat</button>	
+					</div>
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card" style="padding-top:10px;width:500px;">
+				<div class="card-header">
+					<font  size="5">
+						Lihat Detail Jabatan
+					</font>
+				</div>
+				<form th:action="@{/jabatan/view}"  method="GET">
+					<div class="card-body">
+						
+							<label for="nip">*Masukkan Jabatan</label>
+						<select class="form-control" required name="idJabatan" >
+							<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
+						 	<option  th:each="type : ${listJabatan}" 
+						         th:value="${type.id}" 
+						         th:text="${type.nama}" >
+							</option>
+						</select>
+						<br>
+						<button  style="width:100px;margin-left:180px;" type="submit" class="btn btn-primary">Lihat</button>	
+					</div>
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+	<hr>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card" style="padding-top:10px;width:500px;">
+				<div class="card-header">
+					<font  size="5">
+						 Lihat Pegawai Termuda dan Tertua
+					</font>
+				</div>
+				<form th:action="@{/pegawai/termuda-tertua}"  method="GET">
+					<div class="card-body">
+						<label for="nip">*Masukkan Intansi & Provinsi</label>
+						<select class="form-control" required name="idInstansi" >
+							<option disabled="disabled" selected="selected" >Pilih Instansi & Provinsi</option>
+						 	<option  th:each="type : ${listInstansi}" 
+						         th:value="${type.id}" 
+						         th:text="${type.nama}+ '- '+${type.idProvinsi.nama}" >
+						         
+							</option>
+						</select>
+						<br>
+						
+						<button style="width:100px;margin-left:180px;"  type="submit" class="btn btn-primary">Lihat</button>	
+					</div>
+				</form>
+				
+				
+			</div>
+		</div>
+	</div>
+				
+				
+			</div>
+		</div>
+	</div>
+	
+<a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>
+
+
+<script>
+$(document).ready(function(){
+    $(window).scroll(function () {
+           if ($(this).scrollTop() > 50) {
+               $('#back-to-top').fadeIn();
+           } else {
+               $('#back-to-top').fadeOut();
+           }
+       });
+       // scroll body to 0px on click
+       $('#back-to-top').click(function () {
+           $('#back-to-top').tooltip('hide');
+           $('body,html').animate({
+               scrollTop: 0
+           }, 800);
+           return false;
+       });
+       
+       $('#back-to-top').tooltip('show');
+
+});
+</script>
+</body>
+
+</html>

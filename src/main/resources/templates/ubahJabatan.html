@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title> Tambah Jabatan</title>
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	
+	<style>
+		button{
+		margin-left:200px;
+		
+		}
+		
+		.form-control{
+			width:500px;
+		}
+		
+		.row{
+			margin-left:25px;
+			margin-top:50px;
+		}
+		
+		.formulir{
+			padding:20px;
+		}
+		
+		a {
+			    text-decoration: none;
+			    display: inline-block;
+			    padding: 8px 16px;
+			}
+			
+			a:hover {
+			    background-color: #ddd;
+			    color: black;
+			}
+			
+			.previous {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:30px;
+			    margin-left:30px;
+
+			}
+						
+					.alert {
+			    padding: 20px;
+			    background-color: #48D1CC;
+			    margin-right:10px;
+			
+			
+			    color: white;
+			}
+				
+				.closebtn {
+			    margin-left: 15px;
+			    color: white;
+			    font-weight: bold;
+			    float: right;
+			    font-size: 22px;
+			    line-height: 20px;
+			    cursor: pointer;
+			    transition: 0.3s;
+			}
+			
+			.closebtn:hover {
+			    color: black;
+			}
+	</style>
+	
+</head>
+
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+
+	<div th:if="${message}!=null">
+		<div class="alert">
+ 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+ 		 <strong><p th:text="${message}"></strong>
+		</div>
+			
+	  	<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						
+						<h3>Masukan Data Baru</h3>
+						
+					</div>
+					<form class="formulir"th:action="@{/jabatan/ubah}" th:object="${newJabatan}" method="POST">
+			
+						Nama:<br>
+						<input th:value="${jabatan.id}" type="hidden" name="id"  class="form-control"/>
+						<input th:value="${jabatan.nama}" type="text" name="nama"  class="form-control"/>
+						<br>
+						Deskripsi:<br>
+						<input  th:value="${jabatan.deskripsi}" type="text" name="deskripsi"  class="form-control" />
+						<br>
+						Gaji Pokok: <br>
+						<input th:value="${jabatan.gajiPokok}"type="number" name="gajiPokok"  class="form-control"/>
+						<br><br>
+						<button   type="submit" class="btn btn-primary">Submit</button>	
+					</form>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div th:unless="${message}!=null">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header">
+						
+						<h3>Masukan Data Baru</h3>
+						
+					</div>
+					<form class="formulir"th:action="@{/jabatan/ubah}" th:object="${newJabatan}" method="POST">
+			
+						Nama:<br>
+						<input th:value="${jabatan.id}" type="hidden" name="id"  class="form-control"/>
+						<input th:value="${jabatan.nama}" type="text" name="nama"  class="form-control"/>
+						<br>
+						Deskripsi:<br>
+						<input  th:value="${jabatan.deskripsi}" type="text" name="deskripsi"  class="form-control" />
+						<br>
+						Gaji Pokok: <br>
+						<input th:value="${jabatan.gajiPokok}"type="number" name="gajiPokok"  class="form-control"/>
+						<br><br>
+						<button   type="submit" class="btn btn-primary">Submit</button>	
+					</form>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<a th:href="@{'/jabatan/view?idJabatan=' +${jabatan.id}}" class="previous">&laquo; Previous</a>
+	</div>
+	
+	
+</body>
+
+
+
+	
+	
+	
+	
+	
+
+
+</html>
