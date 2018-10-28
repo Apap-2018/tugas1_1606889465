@@ -15,18 +15,9 @@
 			    padding: 8px 16px;
 			}
 			
-			a:hover {
-			    background-color: #ddd;
-			    color: black;
-			}
 			
-			.previous {
-			    background-color: #f1f1f1;
-			    color: red;
-			    margin-top:30px;
-			    margin-left:120px;
-
-			}
+			
+			
 		.atas {
 			margin-left: 15px;
 		}
@@ -35,13 +26,19 @@
 			margin-left: 100px;
 			margin-top: 60px;
 			width:2000px;
+			
+		}
+		
+		.card{
+			padding-bottom:15px;
 		}
 		
 		table {
 			margin-left: 20px;
 			margin-bottom: 10px;
 		}
-
+		
+		
 
 </style>
 </head>
@@ -139,7 +136,8 @@
 		</div>
 			
 	</div>
-	<a th:href="@{'/'}" class="previous">&laquo; Previous</a>
+	
+	<a style="margin-left:100px;"th:href="@{'/'}" class="previous">&laquo; Previous</a>
 </body>
 
 </html>

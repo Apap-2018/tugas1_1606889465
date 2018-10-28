@@ -49,7 +49,7 @@ public class PegawaiController {
 
 		model.addAttribute("listInstansi", listInstansi);
 		model.addAttribute("listJabatan", listJabatan);
-
+		model.addAttribute("status", "nav-item active");
 		return "home";
 	}
 
@@ -272,9 +272,26 @@ public class PegawaiController {
 
 		return "updatePegawai";
 	}
+	
+	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
+	public String ubahPegawaiSubmit(@ModelAttribute PegawaiModel newPegawai, Model model) {
+		
+		PegawaiModel oldPegawai = pegawaiService.getPegawaiDetailByNip(newPegawai.getNip());
+
+		if (oldPegawai.getIdInstansi()==newPegawai.getIdInstansi()&&oldPegawai.getTahunMasuk().equals(newPegawai.getTahunMasuk())&&oldPegawai.getTanggalLahir().equals(newPegawai.getTanggalLahir())) {
+			pegawaiService.updatePegawai(newPegawai, oldPegawai);
+		}
+
+		else {
+			pegawaiService.addNip(newPegawai);
+			pegawaiService.updatePegawai(newPegawai, oldPegawai);
+		}
+		model.addAttribute("nip", oldPegawai.getNip());
+		return "updatePegawaiSuccess";
+	}
 
 	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST, params = { "addJabatan" })
-	public String tambahJabatan(@ModelAttribute PegawaiModel pegawaiBaru, Model model) {
+	public String addRowUbah(@ModelAttribute PegawaiModel pegawaiBaru, Model model) {
 		PegawaiModel pegawai = pegawaiBaru;
 
 		JabatanPegawaiModel jabatanPegawai = new JabatanPegawaiModel();
@@ -292,20 +309,5 @@ public class PegawaiController {
 		return "updatePegawai";
 	}
 
-	@RequestMapping(value = "/pegawai/ubah", method = RequestMethod.POST)
-	public String ubahPegawaiSubmit(@ModelAttribute PegawaiModel newPegawai, Model model) {
-		
-		PegawaiModel oldPegawai = pegawaiService.getPegawaiDetailByNip(newPegawai.getNip());
 
-		if (oldPegawai.getIdInstansi()==newPegawai.getIdInstansi()&&oldPegawai.getTahunMasuk().equals(newPegawai.getTahunMasuk())&&oldPegawai.getTanggalLahir().equals(newPegawai.getTanggalLahir())) {
-			pegawaiService.updatePegawai(newPegawai, oldPegawai);
-		}
-
-		else {
-			pegawaiService.addNip(newPegawai);
-			pegawaiService.updatePegawai(newPegawai, oldPegawai);
-		}
-		model.addAttribute("nip", oldPegawai.getNip());
-		return "updatePegawaiSuccess";
-	}
 }

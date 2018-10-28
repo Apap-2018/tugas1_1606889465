@@ -4,11 +4,12 @@
 <head>
 <title>Ubah Jabatan</title>
 <object th:include="fragments/fragment :: css" th:remove="tag"></object>
-<object th:include="fragments/fragment :: js" th:remove="tag"></object>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 <script th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="/js/top.js"></script>
 
 <style>
 button {
@@ -28,23 +29,11 @@ button {
 	padding: 20px;
 }
 
-a {
-	text-decoration: none;
-	display: inline-block;
-	padding: 8px 16px;
-}
 
-a:hover {
-	background-color: #ddd;
-	color: black;
-}
 
-.previous {
-	background-color: #f1f1f1;
-	color: red;
-	margin-top: 30px;
-	margin-left: 30px;
-}
+
+
+
 
 .alert {
 	padding: 20px;
@@ -88,16 +77,22 @@ a:hover {
 				<form class="formulir" th:action="@{/pegawai/ubah}"
 					th:object="${pegawai}" method="POST">
 
-						<input th:value="${pegawai.nip}" name="nip"
-						class="form-control" type="hidden" /> <br> Nama Pegawai: <input
-						th:value="${pegawai.nama}" type="text" name="nama"
-						class="form-control" /> <br> Tempat Lahir:<br> <input
-						th:value="${pegawai.tempatLahir}" type="text" name="tempatLahir"
-						class="form-control" /> <br> Tanggal Lahir: <br> <input
-						th:value="${pegawai.tanggalLahir}" type="Date" name="tanggalLahir"
-						class="form-control" /> <br> Tahun Masuk:<br> <input
-						th:value="${pegawai.tahunMasuk}" type="text" name="tahunMasuk"
-						class="form-control" /> <br>
+						<input th:value="${pegawai.nip}" name="nip" class="form-control" type="hidden" /> 
+						<br> 
+						<b>Nama Pegawai:</b><br>
+						 <input th:value="${pegawai.nama}" type="text" name="nama" class="form-control" />
+						<br> 
+						<b>Tempat Lahir:</b>
+						<br> 
+						<input th:value="${pegawai.tempatLahir}" type="text" name="tempatLahir" class="form-control" /> 
+						<br> 
+						<b>Tanggal Lahir:</b> 
+						<br> 
+						<input th:value="${pegawai.tanggalLahir}" type="Date" name="tanggalLahir" class="form-control" /> 
+						<br> 
+						<b>Tahun Masuk:</b>
+						<br> 
+						<input th:value="${pegawai.tahunMasuk}" type="text" name="tahunMasuk" class="form-control" /> <br>
 					<div>
 						<b>Provinsi : </b>
 						<div>
@@ -123,8 +118,8 @@ a:hover {
 						</select>
 					</div>
 				<br>
-				<div >Jabatan:</div>
-					<br>
+				<div ><b>Jabatan:</b></div>
+					
 					<div  th:each="jabatanPegawai, statusJabatan : *{jabatanPegawai}" >
 						<select th:field="*{jabatanPegawai[__${statusJabatan.index}__].jabatan}" class="form-control">
 						    <option th:each="jabatan, status : ${daftarJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"/>
@@ -143,9 +138,12 @@ a:hover {
 
 			</div>
 		</div>
-	</div>
-
-
+		
+	</div><br>
+	<a style="margin-left:40px;"th:href="@{'/pegawai?nip='}+ ${pegawai.nip}" class="previous">&laquo; Previous</a><br><a style="margin-left:1400px;"id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a><br>
+	
+	
+	
 
 
 </body>

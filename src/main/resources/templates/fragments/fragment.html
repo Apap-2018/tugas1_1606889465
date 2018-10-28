@@ -15,6 +15,8 @@
 			<script th:src="@{/js/top.js}"></script>
 		</head>
 		
+		
+		
 	</head>
 	
 	<body>
@@ -22,21 +24,21 @@
 			<a class="navbar-brand" th:href="@{'/'}" th:text="SIPEG"></a>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active':''}">
 						<a class="nav-link" th:href="@{'/'}"> Home</a>
 					</li>
-					<li class="nav-item active">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/pegawai/tambah' ? 'active':''}">
 						<a class="nav-link" th:href="@{'/pegawai/tambah'}"> Tambah Pegawai</a>
 					</li>
 					
-					<li class="nav-item active">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/pegawai/cari' ? 'active':''}">
 						<a class="nav-link" th:href="@{'/pegawai/cari'}"> Cari Pegawai</a>
 					</li>
 					
-					<li class="nav-item active">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/jabatan/tambah' ? 'active':''}">
 						<a class="nav-link" th:href="@{'/jabatan/tambah'}"> Tambah Jabatan</a>
 					</li>
-					<li class="nav-item active">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/jabatan/viewall' ? 'active':''}">
 						<a class="nav-link" th:href="@{'/jabatan/viewall'}"> Lihat Semua Jabatan</a>
 					</li>
 					

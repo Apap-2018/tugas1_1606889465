@@ -61,12 +61,14 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 	
-	<div th:if="${message}!=null">
-		<div class="alert">
- 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
- 		 <strong><p th:text="${message}"></strong>
+	<div th:switch="${message}">
+		<div th:case="'Success'">
+			<div class="alert">
+	 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	 		 <strong>Sukses! Data Berhasil ditambahkan</strong>
+			</div>
 		</div>
-	
+	</div>
 		<div  class="row">
 			<div class="col-md-6">
 				<div class="card">
@@ -94,37 +96,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	<div th:unless="${message}!=null">
-	<div  class="row">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">
-						
-						<h3>Silahkan Masukan Data</h3>
-						
-					</div>
-					<form class="formulir"th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
-			
-						Jabatan :<br>
-						<input type="text" name="nama" class="form-control"/>
-						
-						<br>
-						Deskripsi : <br>
-						<input type="text" name="deskripsi" class="form-control"/>
-						<br>
-						Gaji Pokok :<br>
-						<input type="text" name="gajiPokok" class="form-control"/>
-						<br>
-						<button   type="submit" class="btn btn-primary">Submit</button>	
-					</form>
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
 	
 	
 </body>

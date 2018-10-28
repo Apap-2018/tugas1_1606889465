@@ -77,12 +77,17 @@
 
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-
-	<div th:if="${message}!=null">
-		<div class="alert">
- 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
- 		 <strong><p th:text="${message}"></strong>
+	
+	<div th:switch="${message}">
+		<div th:case="'Success'">
+			<div class="alert">
+	 		 <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+	 		 <strong>Sukses! Jabatan berhasil ditambahkan</strong>
+			</div>
 		</div>
+	</div>
+		
+		
 			
 	  	<div class="row">
 			<div class="col-md-6">
@@ -96,13 +101,13 @@
 			
 						Nama:<br>
 						<input th:value="${jabatan.id}" type="hidden" name="id"  class="form-control"/>
-						<input th:value="${jabatan.nama}" type="text" name="nama"  class="form-control"/>
+						<input th:value="${jabatan.nama}" type="text" name="nama"  class="form-control" required/>
 						<br>
 						Deskripsi:<br>
-						<input  th:value="${jabatan.deskripsi}" type="text" name="deskripsi"  class="form-control" />
+						<input  th:value="${jabatan.deskripsi}" type="text" name="deskripsi"  class="form-control" required/>
 						<br>
 						Gaji Pokok: <br>
-						<input th:value="${jabatan.gajiPokok}"type="number" name="gajiPokok"  class="form-control"/>
+						<input th:value="${jabatan.gajiPokok}"type="number" name="gajiPokok"  class="form-control" required="true"/>
 						<br><br>
 						<button   type="submit" class="btn btn-primary">Submit</button>	
 					</form>
@@ -111,37 +116,9 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	
-	<div th:unless="${message}!=null">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header">
-						
-						<h3>Masukan Data Baru</h3>
-						
-					</div>
-					<form class="formulir"th:action="@{/jabatan/ubah}" th:object="${newJabatan}" method="POST">
-			
-						Nama:<br>
-						<input th:value="${jabatan.id}" type="hidden" name="id"  class="form-control"/>
-						<input th:value="${jabatan.nama}" type="text" name="nama"  class="form-control"/>
-						<br>
-						Deskripsi:<br>
-						<input  th:value="${jabatan.deskripsi}" type="text" name="deskripsi"  class="form-control" />
-						<br>
-						Gaji Pokok: <br>
-						<input th:value="${jabatan.gajiPokok}"type="number" name="gajiPokok"  class="form-control"/>
-						<br><br>
-						<button   type="submit" class="btn btn-primary">Submit</button>	
-					</form>
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
+	
+	
 	<a th:href="@{'/jabatan/view?idJabatan=' +${jabatan.id}}" class="previous">&laquo; Previous</a>
 	</div>
 	
