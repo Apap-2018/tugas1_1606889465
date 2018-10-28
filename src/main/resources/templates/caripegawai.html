@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+ 
+	 <link href = "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+	 <link href = "https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	 <script src = "https://code.jquery.com/jquery-3.3.1.js"></script>
+	 <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	 <script src = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+	<script src="/js/dataTables.js"></script>
+	
+	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	
+	<style>
+	.bodyTable{
+		padding:15px;
+	}
+	
+	.row{
+		padding:15px;
+	}
+	
+	.previouss {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:30px;
+			    margin-left:80px;
+				
+			}
+	
+	</style>
+	
+	</head>
+	
+	<body>
+		
+		<nav th:replace="fragments/fragment :: navbar"></nav>
+		
+		<div class="section">
+		
+				<form th:action="@{/pegawai/cari}" method="GET">
+				
+					<p>
+					<div class="row">
+						<div class="col-lg-4">Provinsi</div>
+						<div class="col-lg-4">
+							<select class="form-control"  id="provinsi" name="IdProvinsi">
+								<option disabled="disabled" selected="selected" >Pilih Provinsi</option>
+							    <option th:each="provinsi : ${daftarProvinsi}" th:value="${provinsi.id}" th:text="${provinsi.nama}"/>
+							</select>
+						</div>
+					</div>
+					</p>
+					
+					<p>
+					<div class="row">
+						<div class="col-lg-4">Nama Instansi</div>
+						<div class="col-lg-4">
+							<select  class="form-control" name="IdInstansi" id="instansi">
+							   <option disabled="disabled" selected="selected" >Pilih Instansi</option>
+							</select>
+						</div>
+					</div>
+					</p>
+					
+					<p>
+					<div class="row">
+						<div class="col-lg-4">Jabatan</div>
+						<div class="col-lg-4" >
+							<select class="form-control" name="IdJabatan" >
+								<option disabled="disabled" selected="selected" >Pilih Jabatan</option>
+							    <option th:each="jabatan, status : ${daftarJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}"/>
+							</select>
+							
+						</div>
+						
+					</div>
+					</p>
+					
+					<button style="margin-left:650px;" type="submit" name="search" class="btn btn-primary">Search</button>
+				</form>
+			
+			
+			<hr>
+			
+			<div class="bodyTable">
+				<table id="jabatanTable" class="table table-striped table-bordered">
+					<thead>
+							<tr>
+								<th>NIP</th>
+								<th>Nama</th>
+								<th>Tempat Lahir</th>
+								<th>Tanggal Lahir</th>
+								<th>Tahun Masuk</th>
+								<th>Nama Instansi</th>
+								<th>Jabatan</th>
+								
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="pegawai : *{daftarPegawai}">
+								<td th:text="${pegawai.nip}"></td>
+								<td th:text="${pegawai.nama}"></td>
+								<td th:text="${pegawai.tempatLahir}"></td>
+								<td th:text="${pegawai.tanggalLahir}"></td>
+								<td th:text="${pegawai.tahunMasuk}"></td>
+								<td th:text="${pegawai.idInstansi.nama}"></td>
+								<td>
+									<li th:each="jabatan: ${pegawai.jabatanPegawai}" th:text="${jabatan.jabatan.nama}"></li>
+								</td>
+							
+							
+							</tr>
+						</tbody>
+					
+				</table>
+				   
+			</div>
+			<a th:href="@{'/'}" class="previouss">&laquo; Previous</a>
+		</div>
+		
+		<a style="margin-left:1400px;margin-bottom:15px;"id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>   
+		</body>
+		
+		<script>
+		$('#provinsi').change(
+			     function() {
+			         $.getJSON("/instansi/tambah", {
+			             provinsiId : $(this).val(),
+			             ajax : 'true'
+			         }, function(data) {
+			             var html = '<option value="">Pilih Instansi</option>';
+			             var len = data.length;
+			             for ( var i = 0; i < len; i++) {
+			                 html += '<option value="' + data[i].id + '">'
+			                         + data[i].nama + '</option>';
+			             }
+			             html += '</option>';
+			             $('#instansi').html(html);
+				});
+			});
+		
+		
+		</script>
+			
+	
+</html>

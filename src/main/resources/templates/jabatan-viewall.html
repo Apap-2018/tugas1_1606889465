@@ -10,6 +10,7 @@
 	 <script src = "https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	 <script src = "https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 	<script src="/js/datatable.js"></script>
+	<script src="/js/top.js"></script>
 	
 	<object th:include="fragments/fragment :: css" th:remove="tag"></object>
 	<object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -30,6 +31,18 @@
 		
 		.test{
 			margin:25px;
+		}
+		
+		.previouss {
+			    background-color: #f1f1f1;
+			    color: red;
+			    margin-top:30px;
+			    margin-left:80px;
+				
+			}
+		
+		body{
+			padding-bottom:15px;
 		}
 	</style>
 </head>
@@ -69,28 +82,8 @@
 	 </div>
 </div> 
 <a id="back-to-top" href="#" class="btn btn-primary btn-lg back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up">^</span></a>   
+<a th:href="@{'/'}" class="previouss">&laquo; Previous</a>
 </body>
 
-<script>
-$(document).ready(function(){
-    $(window).scroll(function () {
-           if ($(this).scrollTop() > 50) {
-               $('#back-to-top').fadeIn();
-           } else {
-               $('#back-to-top').fadeOut();
-           }
-       });
-       // scroll body to 0px on click
-       $('#back-to-top').click(function () {
-           $('#back-to-top').tooltip('hide');
-           $('body,html').animate({
-               scrollTop: 0
-           }, 800);
-           return false;
-       });
-       
-       $('#back-to-top').tooltip('show');
 
-});
-</script>
 </html>

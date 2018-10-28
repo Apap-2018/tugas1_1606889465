@@ -42,9 +42,12 @@ public class JabatanController {
 		JabatanModel jabatan = jabatanService.getJabatanDetailById(id);	
 		
 		List<JabatanPegawaiModel> tempList = jabatanPegawaiService.getJabatanPegawaiByJabatan(jabatan); 
+		double gajiPegawai = jabatan.getGajiPokok();
+		long gaji = (long) gajiPegawai;
 
 		model.addAttribute("jumlahPegawai", tempList.size());
 		model.addAttribute("jabatan", jabatan);
+		model.addAttribute("gaji",gaji);
 
 		return "detailJabatan";
 	}

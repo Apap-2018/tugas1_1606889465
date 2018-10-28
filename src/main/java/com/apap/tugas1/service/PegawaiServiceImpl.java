@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apap.tugas1.model.InstansiModel;
+import com.apap.tugas1.model.JabatanModel;
 import com.apap.tugas1.model.JabatanPegawaiModel;
 import com.apap.tugas1.model.PegawaiModel;
 import com.apap.tugas1.model.ProvinsiModel;
@@ -30,10 +31,17 @@ public class PegawaiServiceImpl implements PegawaiService {
 		return pegawaiDb.findByNip(nip);
 	}
 	
-	
-	
+	@Override
+	public List<PegawaiModel> getPegawaiDetailByInstansi(InstansiModel instansi) {
+		return pegawaiDb.findByIdInstansi(instansi);
+	}
 	@Override
 	public void addPegawai(PegawaiModel pegawai) {
+		pegawaiDb.save(pegawai);
+	}
+	
+	@Override
+	public void addNip(PegawaiModel pegawai) {
 		
 		
 		String nip = "";
@@ -60,8 +68,7 @@ public class PegawaiServiceImpl implements PegawaiService {
 		}
 		
 		pegawai.setNip(nip);
-		System.out.println(nip);
-		pegawaiDb.save(pegawai);
+		
 	}
 
 	@Override
@@ -105,6 +112,45 @@ public class PegawaiServiceImpl implements PegawaiService {
 		return pegawaiDb.findByIdInstansiOrderByTanggalLahirAsc(instansi);
 	}
 	
+	@Override
+	public List<PegawaiModel> findPegawaiByInstansiAndJabatan(InstansiModel instansi, JabatanModel jabatan){
+		List<PegawaiModel> pegawai = new ArrayList<PegawaiModel>();
+		List<PegawaiModel> pegawaiInstansi = pegawaiDb.findByIdInstansi(instansi);
+		
+		for (PegawaiModel instansiPegawai : pegawaiInstansi) {
+			int listSize= instansiPegawai.getJabatanPegawai().size();
+			for (int i=0 ; i<listSize; i++) {
+				if (instansiPegawai.getJabatanPegawai().get(i).getJabatan().getId() == jabatan.getId()) {
+					pegawai.add(instansiPegawai);
+				}
+				
+			}
+		}
+		return pegawai;
+	}
+	
+	
+	
+	@Override
+	public void updatePegawai(PegawaiModel newPegawai , PegawaiModel oldPegawai) {
+		
+		oldPegawai.setIdInstansi(newPegawai.getIdInstansi());
+		oldPegawai.setNama(newPegawai.getNama());
+		oldPegawai.setNip(newPegawai.getNip());
+		oldPegawai.setTahunMasuk(newPegawai.getTahunMasuk());
+		oldPegawai.setTanggalLahir(newPegawai.getTanggalLahir());
+		oldPegawai.setTempatLahir(newPegawai.getTempatLahir());
+		
+		int totalList = oldPegawai.getJabatanPegawai().size();
+		for (int i=0; i< totalList;i++) {
+			oldPegawai.getJabatanPegawai().get(i).setJabatan(newPegawai.getJabatanPegawai().get(i).getJabatan());
+		}
+		
+		for (int i = totalList ; i<newPegawai.getJabatanPegawai().size();i++) {
+			newPegawai.getJabatanPegawai().get(i).setPegawai(oldPegawai);
+			jabatanPegawaiDb.save(newPegawai.getJabatanPegawai().get(i));
+		}
+	}
 	
 
 }

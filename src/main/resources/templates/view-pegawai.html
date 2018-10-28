@@ -128,10 +128,16 @@
 
 				</table>
 
-
+				<form  th:action="@{/pegawai/ubah}" method="GET">
+						<input th:value="${pegawai.nip}" type="hidden" name="nip"/>
+						<button style="width:50%;margin-left:200px;"type="submit" class="btn btn-primary">Ubah Pegawai</button>	
+						
+				</form>
 
 			</div>
+			
 		</div>
+			
 	</div>
 	<a th:href="@{'/'}" class="previous">&laquo; Previous</a>
 </body>

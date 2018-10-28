@@ -33,6 +33,8 @@ public class ProvinsiModel implements Serializable{
 	@Column(name="presentase_tunjangan", nullable=false)
 	private double presentaseTunjangan;
 	
+	@OneToMany(mappedBy = "idProvinsi", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<InstansiModel> instansi;
 	
 
 	public long getId() {
@@ -57,5 +59,13 @@ public class ProvinsiModel implements Serializable{
 
 	public void setPresentaseTunjangan(double presentaseTunjangan) {
 		this.presentaseTunjangan = presentaseTunjangan;
+	}
+
+	public List<InstansiModel> getInstansi() {
+		return instansi;
+	}
+
+	public void setInstansi(List<InstansiModel> instansi) {
+		this.instansi = instansi;
 	}
 }

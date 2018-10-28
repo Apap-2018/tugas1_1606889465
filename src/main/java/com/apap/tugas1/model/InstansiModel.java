@@ -97,6 +97,18 @@ public class InstansiModel implements Serializable {
 
 	public void setIdProvinsi(ProvinsiModel idProvinsi) {
 		this.idProvinsi = idProvinsi;
+	}
+
+
+
+	public List<PegawaiModel> getPegawai() {
+		return pegawai;
+	}
+
+
+
+	public void setPegawai(List<PegawaiModel> pegawai) {
+		this.pegawai = pegawai;
 	} 
 	
 	
